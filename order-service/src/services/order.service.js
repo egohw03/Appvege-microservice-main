@@ -38,9 +38,9 @@ export const createOrder = async (req, res) => {
 
         // 4. (Quan trọng) Xóa giỏ hàng sau khi đã checkout thành công
         // Service này sẽ gọi một API khác của Cart Service để xóa giỏ hàng
-        // await axios.delete(`http://localhost:7070/api/cart/clear`, {
-        //     // headers: { 'Cookie': req.headers.cookie } 
-        // });
+        await axios.delete(`http://localhost:7070/api/cart/clear`, {
+            headers: { 'Cookie': req.headers.cookie } 
+        });
 
         res.status(201).json(newOrder);
 
