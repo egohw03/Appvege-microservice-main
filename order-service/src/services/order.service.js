@@ -11,8 +11,7 @@ export const createOrder = async (req, res) => {
             return res.status(400).json({ message: "Shipping address is required" });
         }
 
-        // 1. Gọi đến Cart Service để lấy giỏ hàng hiện tại
-        // Lưu ý: Cần truyền cookie/token xác thực trong header
+        // Gọi đến Cart Service để lấy giỏ hàng hiện tại
          const cartResponse = await axios.get(`http://localhost:7070/`, {
              headers: { 'Cookie': req.headers.cookie } 
         });
@@ -23,10 +22,10 @@ export const createOrder = async (req, res) => {
             return res.status(400).json({ message: "Cart is empty" });
         }
 
-        // 2. Tính tổng tiền
+        // Tính tổng tiền
         const totalAmount = cart.items.reduce((total, item) => total + item.quantity * item.price, 0);
 
-        // 3. Tạo đơn hàng mới
+        // Tạo đơn hàng mới
         const newOrder = new Order({
             userId,
             items: cart.items,
@@ -54,7 +53,7 @@ export const createOrder = async (req, res) => {
 // Hàm lấy lịch sử đơn hàng
 export const getOrders = async (req, res) => {
     try {
-        const userId = "temp-user-id"; // Thay bằng req.user.userId;
+        const userId = req.user.userId; // Thay bằng req.user.userId;
         const orders = await Order.find({ userId }).sort({ createdAt: -1 });
         res.status(200).json(orders);
     } catch (error) {

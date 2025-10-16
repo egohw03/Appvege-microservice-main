@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { toast } from 'react-hot-toast'; // Cần cài đặt react-hot-toast
+import { toast } from 'react-hot-toast';
 
 // Cấu hình axios để gọi đến API Gateway
 const apiClient = axios.create({
     baseURL: 'http://localhost:8000/api',
-    withCredentials: true, // Rất quan trọng để gửi cookie
+    withCredentials: true,
 });
 
 const useAuthStore = create((set, get) => ({
@@ -18,7 +18,6 @@ const useAuthStore = create((set, get) => ({
     checkAuth: async () => {
         set({ isCheckingAuth: true });
         try {
-            // Endpoint này cần được tạo trong auth-service
             const res = await apiClient.get("/auth/check"); 
             set({ authUser: res.data });
         } catch (error) {
@@ -31,7 +30,7 @@ const useAuthStore = create((set, get) => ({
     signup: async (data) => {
         set({ isSigningUp: true });
         try {
-            const res = await apiClient.post("/auth/register", data); // Route từ auth.route.js
+            const res = await apiClient.post("/auth/register", data);
             set({ authUser: res.data });
             toast.success("Account created successfully!");
         } catch (error) {
