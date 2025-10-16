@@ -115,3 +115,18 @@ export const updateCartItem = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
+// Hàm xóa tất cả sản phẩm trong giỏ hàng
+export const clearCart = async (req, res) => {
+    const userId = req.user.userId;
+    try {
+        let cart = await Cart.findOne({ userId });
+        if (cart) {
+            cart.items = [];
+            await cart.save();
+        }
+        res.status(200).json({ message: "Cart cleared successfully." });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}

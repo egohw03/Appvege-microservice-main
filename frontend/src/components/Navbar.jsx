@@ -22,6 +22,7 @@ const Navbar = () => {
                                     </summary>
                                     <ul className="p-2 bg-base-100 rounded-t-none">
                                         <li><a>Profile</a></li> {/* Sẽ làm sau */}
+                                        <li><Link to="/orders">My Orders</Link></li>
                                         <li><button onClick={logout}>Logout</button></li>
                                     </ul>
                                 </details>
