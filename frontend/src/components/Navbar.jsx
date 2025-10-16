@@ -21,7 +21,7 @@ const Navbar = () => {
                                         Hello, {authUser.name}
                                     </summary>
                                     <ul className="p-2 bg-base-100 rounded-t-none">
-                                        <li><a>Profile</a></li> {/* Sẽ làm sau */}
+                                        <li><Link to="/profile">Profile</Link></li>
                                         <li><Link to="/orders">My Orders</Link></li>
                                         <li><button onClick={logout}>Logout</button></li>
                                     </ul>
